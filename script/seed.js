@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Airline, Airport} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +12,42 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  const airlines = await Promise.all([
+    Airline.create({
+      fs: 'test',
+      iata: 'test',
+      icao: 'test',
+      name: 'test',
+      active: false
+    })
+  ])
+  const airports = await Promise.all([
+    Airport.create({
+      fs: 'test',
+      iata: 'test',
+      icao: 'test',
+      faa: 'test',
+      name: 'test',
+      city: 'test',
+      cityCode: 'test',
+      stateCode: 'test',
+      countryCode: 'test',
+      countryName: 'test',
+      timeZoneRegionName: 'test',
+      utcOffsetHours: 'test',
+      latitude: 100.0,
+      longitude: 100.0,
+      elevation: 'test',
+      classification: 'test',
+      active: false,
+      weatherURL: 'test',
+      delayIndex: 'test'
+    })
+  ])
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${airlines.length} airlines`)
+  console.log(`seeded ${airports.length} airlines`)
   console.log(`seeded successfully`)
 }
 
